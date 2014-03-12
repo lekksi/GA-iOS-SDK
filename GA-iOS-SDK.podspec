@@ -17,8 +17,7 @@ Pod::Spec.new do |s|
 	s.license  = {
 		:type => 'MIT',
 		:text => <<-LICENSE
-			Copyright (c) 2013, Aleksandras Smirnovas.
-			All rights reserved.
+			MIT.
 		LICENSE
 	}
 
