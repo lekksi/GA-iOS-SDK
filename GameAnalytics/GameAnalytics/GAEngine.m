@@ -231,7 +231,7 @@ static NSMutableSet *offlineArchive;
                                   @"os_major": [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."][0],
                                   @"os_minor": [UIDevice currentDevice].systemVersion,
                                     @"ios_id": self.userID,
-                               @"sdk_version":@"ios 0.4.0"
+                               @"sdk_version":@"ios 0.4.1"
                                   }];
     
 }
