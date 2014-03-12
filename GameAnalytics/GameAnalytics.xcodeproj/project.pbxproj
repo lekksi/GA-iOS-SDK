@@ -331,7 +331,7 @@
 		F83234C516BD1052007A1B4E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Aleksandras Smirnovas";
 			};
 			buildConfigurationList = F83234C816BD1052007A1B4E /* Build configuration list for PBXProject "GameAnalytics" */;
