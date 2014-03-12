@@ -77,7 +77,7 @@ static NSMutableSet *offlineArchive;
 
 -(void) checkAndRestoreFrozenOperations {
     if([GASettings isDebugLogEnabled])
-        NSLog(@"checkAndRestoreFrozenOperations with request count: %d", [offlineArchive count]);
+        NSLog(@"checkAndRestoreFrozenOperations with request count: %lu", (unsigned long)[offlineArchive count]);
     
     for(GARequest *request in [offlineArchive allObjects])
     {
@@ -98,7 +98,7 @@ static NSMutableSet *offlineArchive;
     if([GASettings isBatchRequestsEnabled] && [self isReachable])
     {
         if([GASettings isDebugLogEnabled])
-            NSLog(@"sendBatch with request count: %d", [offlineArchive count]);
+            NSLog(@"sendBatch with request count: %lu", (unsigned long)[offlineArchive count]);
         
         for(GARequest *request in [offlineArchive allObjects])
         {

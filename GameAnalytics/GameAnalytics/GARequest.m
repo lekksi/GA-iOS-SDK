@@ -150,7 +150,7 @@
     if (httpResponse.statusCode != 202)//Accepted
     {
         if([GASettings isDebugLogEnabled])
-            NSLog(@"GARequest finished with repsonse code: %d", httpResponse.statusCode);
+            NSLog(@"GARequest finished with repsonse code: %ld", (long)httpResponse.statusCode);
         
         [urlConnection cancel];
         [self setState:GARequestStatusFailed];

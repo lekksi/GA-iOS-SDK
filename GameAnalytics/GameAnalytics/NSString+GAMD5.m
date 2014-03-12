@@ -20,7 +20,7 @@
     unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
     
 	// Create 16 bytes MD5 hash value, store in buffer
-    CC_MD5(ptr, strlen(ptr), md5Buffer);
+    CC_MD5(ptr, (CC_LONG)strlen(ptr), md5Buffer);
     
 	// Convert unsigned char buffer to NSString of hex values
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
