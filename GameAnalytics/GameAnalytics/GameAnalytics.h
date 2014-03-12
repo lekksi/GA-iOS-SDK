@@ -114,7 +114,7 @@
  *  @param  z           float        No           Z-position where the event occurred.
  *
  *  @param currency     string       Yes           A custom string for identifying the currency. For example "USD", "US Dollars" or "GA Dollars". Conversion between different real currencies should be done before sending the amount to the API.
- *  @param amount       integer      Yes           Numeric value which corresponds to the cost of the purchase in the monetary unit divided by 100. For example, if the currency is "USD", the amount should be specified in cents.
+ *  @param amount       integer      Yes           Numeric value which corresponds to the cost of the purchase in the monetary unit multiplied by 100. For example, if the currency is "USD", the amount should be specified in cents.
  *
  */
 + (void)logBusinessDataEvent:(NSString *)eventID
