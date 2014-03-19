@@ -146,23 +146,20 @@ Log Business data examples:
                          currencyString:@"LTL"
                            amountNumber:@100];
 
-###Quality Assurance data
+###Error data
 
 Used to tracking events related to quality assurance, such as crashes, system specifications, etc.
 Log Quality Assurance data examples:
 
-    [GameAnalytics logQualityAssuranceDataEvent:@"Exceptaion:NullReferenceException"
-    								 withParams:@{ @"area" : @"Level 1", @"x" : @1.0f, @"y" : @1.0f, @"z" : @1.0f, @"message" : @"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."}];
+    [GameAnalytics logErrorDataEvent:GAErrorSeverityLevelWarning
+                             message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
+                                area:@"area"
+                                   x:@1
+                                   y:@2
+                                   z:@3];
 
-    [GameAnalytics logQualityAssuranceDataEvent:@"Exceptaion:NullReferenceException"
-                                        message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
-                                           area:@"area"
-                                              x:@1
-                                              y:@2
-                                              z:@3];
-
-    [GameAnalytics logQualityAssuranceDataEvent:@"Exceptaion:NullReferenceException"
-                                        message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."];
+    [GameAnalytics logErrorDataEvent:GAErrorSeverityLevelWarning
+                             message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."];
 
 ###Update session ID
 
