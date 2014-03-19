@@ -183,18 +183,18 @@ typedef enum {
 /*!
  *  @since 0.5.0
  */
-+ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
-                  message:(NSString *)message
-                     area:(NSString *)area
-                        x:(NSNumber *)x
-                        y:(NSNumber *)y
-                        z:(NSNumber *)z;
++ (void)logErrorDataWithSeverityLevel:(GAErrorSeverityLevel)severityLevel
+                              message:(NSString *)message
+                                 area:(NSString *)area
+                                    x:(NSNumber *)x
+                                    y:(NSNumber *)y
+                                    z:(NSNumber *)z;
 
 /*!
  *  @since 0.5.0
  */
-+ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
-                  message:(NSString *)message;
++ (void)logErrorDataWithSeverityLevel:(GAErrorSeverityLevel)severityLevel
+                              message:(NSString *)message;
 
 /*!
  *  @abstract Updates session ID
