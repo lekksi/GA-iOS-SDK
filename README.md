@@ -151,15 +151,15 @@ Log Business data examples:
 Used to tracking events related to quality assurance, such as crashes, system specifications, etc.
 Log Quality Assurance data examples:
 
-    [GameAnalytics logErrorDataEvent:GAErrorSeverityLevelWarning
-                             message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
-                                area:@"area"
-                                   x:@1
-                                   y:@2
-                                   z:@3];
+    [GameAnalytics logErrorDataWithSeverityLevel:GAErrorSeverityLevelWarning
+                                         message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
+                                            area:@"area"
+                                               x:@1
+                                               y:@2
+                                               z:@3];
 
-    [GameAnalytics logErrorDataEvent:GAErrorSeverityLevelWarning
-                             message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."];
+    [GameAnalytics logErrorDataWithSeverityLevel:GAErrorSeverityLevelDebug
+                                         message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."];
 
 ###Update session ID
 
