@@ -8,6 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ *  @abstract Enum for setting severity level of error event.
+ *
+ *  @since 0.5.0
+ *
+ */
+typedef enum {
+    GAErrorSeverityLevelDebug = 0,
+    GAErrorSeverityLevelInfo,
+    GAErrorSeverityLevelWarning,
+    GAErrorSeverityLevelError,
+    GAErrorSeverityLevelCritical
+} GAErrorSeverityLevel;
+
+
 @interface GameAnalytics : NSObject
 
 /*!
@@ -114,7 +129,7 @@
  *  @param  z           float        No           Z-position where the event occurred.
  *
  *  @param currency     string       Yes           A custom string for identifying the currency. For example "USD", "US Dollars" or "GA Dollars". Conversion between different real currencies should be done before sending the amount to the API.
- *  @param amount       integer      Yes           Numeric value which corresponds to the cost of the purchase in the monetary unit divided by 100. For example, if the currency is "USD", the amount should be specified in cents.
+ *  @param amount       integer      Yes           Numeric value which corresponds to the cost of the purchase in the monetary unit multiplied by 100. For example, if the currency is "USD", the amount should be specified in cents.
  *
  */
 + (void)logBusinessDataEvent:(NSString *)eventID
@@ -153,17 +168,33 @@
  *
  */
 + (void)logQualityAssuranceDataEvent:(NSString *)eventID
-                          withParams:(NSDictionary *)params;
+                          withParams:(NSDictionary *)params DEPRECATED_ATTRIBUTE;
 
 + (void)logQualityAssuranceDataEvent:(NSString *)eventID
                              message:(NSString *)message
                                 area:(NSString *)area
                                    x:(NSNumber *)x
                                    y:(NSNumber *)y
-                                   z:(NSNumber *)z;
+                                   z:(NSNumber *)z DEPRECATED_ATTRIBUTE;
 
 + (void)logQualityAssuranceDataEvent:(NSString *)eventID
-                             message:(NSString *)message;
+                             message:(NSString *)message DEPRECATED_ATTRIBUTE;
+
+/*!
+ *  @since 0.5.0
+ */
++ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
+                  message:(NSString *)message
+                     area:(NSString *)area
+                        x:(NSNumber *)x
+                        y:(NSNumber *)y
+                        z:(NSNumber *)z;
+
+/*!
+ *  @since 0.5.0
+ */
++ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
+                  message:(NSString *)message;
 
 /*!
  *  @abstract Updates session ID
