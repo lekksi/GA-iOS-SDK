@@ -88,12 +88,12 @@
 
 -(IBAction)logErrorData:(id)sender
 {
-    [GameAnalytics logErrorDataEvent:GAErrorSeverityLevelWarning
-                             message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
-                                area:@"area"
-                                   x:@1
-                                   y:@2
-                                   z:@3];
+    [GameAnalytics logErrorDataWithSeverityLevel:GAErrorSeverityLevelWarning
+                                         message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
+                                            area:@"area"
+                                               x:@1
+                                               y:@2
+                                               z:@3];
 }
 
 -(IBAction)toggleDebugLog:(id)sender
