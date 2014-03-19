@@ -224,14 +224,14 @@ static GAEngine *_gaEngine;
                                               z:nil];
 }
 
-+ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
-                  message:(NSString *)message
-                     area:(NSString *)area
-                        x:(NSNumber *)x
-                        y:(NSNumber *)y
-                        z:(NSNumber *)z
++ (void)logErrorDataWithSeverityLevel:(GAErrorSeverityLevel)severityLevel
+                              message:(NSString *)message
+                                 area:(NSString *)area
+                                    x:(NSNumber *)x
+                                    y:(NSNumber *)y
+                                    z:(NSNumber *)z
 {
-    [self.gaEngine errorDataDictWithSeverity:[GameAnalytics stringForSeverity:severity]
+    [self.gaEngine errorDataDictWithSeverity:[GameAnalytics stringForSeverityLevel:severityLevel]
                                      message:message
                                         area:area
                                            x:x
@@ -239,10 +239,10 @@ static GAEngine *_gaEngine;
                                            z:z];
 }
 
-+ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
-                  message:(NSString *)message
++ (void)logErrorDataWithSeverityLevel:(GAErrorSeverityLevel)severityLevel
+                              message:(NSString *)message
 {
-    [self.gaEngine errorDataDictWithSeverity:[GameAnalytics stringForSeverity:severity]
+    [self.gaEngine errorDataDictWithSeverity:[GameAnalytics stringForSeverityLevel:severityLevel]
                                      message:message
                                         area:nil
                                            x:nil
@@ -305,7 +305,7 @@ static GAEngine *_gaEngine;
 
 #pragma mark - private
 
-+ (NSString *)stringForSeverity:(GAErrorSeverityLevel)severity
++ (NSString *)stringForSeverityLevel:(GAErrorSeverityLevel)severity
 {
     NSString *severityString;
     
