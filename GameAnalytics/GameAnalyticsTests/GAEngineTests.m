@@ -216,5 +216,42 @@
     STAssertEqualObjects(params, mParams, @"qADataDictWithMessage returns NSDictionary with wrong keys/values");
 }
 
+-(void)testErrorParams
+{
+    NSDictionary *params = [gaEngine errorDataDictWithSeverity:@"level"
+                                                       message:@"Message text"
+                                                          area:@"Area"
+                                                             x:@1
+                                                             y:@2
+                                                             z:@3
+                            ];
+    
+    NSDictionary *mParams = @{@"severity": @"level",
+                              @"message": @"Message text",
+                              @"area": @"Area",
+                              @"x": @1,
+                              @"y": @2,
+                              @"z": @3
+                              };
+    
+    STAssertEqualObjects(params, mParams, @"errorDataDictWithSeverity returns NSDictionary with wrong keys/values");
+}
+
+
+-(void)testErrorParamsMessage
+{
+    NSDictionary *params = [gaEngine errorDataDictWithSeverity:@"level"
+                                                       message:@"Message text"
+                                                          area:nil
+                                                             x:nil
+                                                             y:nil
+                                                             z:nil
+                            ];
+    
+    NSDictionary *mParams = @{@"severity": @"level", @"message": @"Message text"};
+    
+    STAssertEqualObjects(params, mParams, @"errorDataDictWithSeverity returns NSDictionary with wrong keys/values");
+}
+
 
 @end

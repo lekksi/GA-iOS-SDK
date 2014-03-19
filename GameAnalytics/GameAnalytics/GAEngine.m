@@ -231,7 +231,7 @@ static NSMutableSet *offlineArchive;
                                   @"os_major": [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."][0],
                                   @"os_minor": [UIDevice currentDevice].systemVersion,
                                     @"ios_id": self.userID,
-                               @"sdk_version":@"ios 0.4.1"
+                               @"sdk_version":@"ios 0.5.0"
                                   }];
     
 }
@@ -243,7 +243,8 @@ static NSMutableSet *offlineArchive;
     if([GASettings isDebugLogEnabled])
         NSLog(@"logUserDataWithParams called");
     
-    NSDictionary *mParams = [self mutableDictionaryFromRequiredFieldsWithEventID:nil params:params];
+    NSDictionary *mParams = [self mutableDictionaryFromRequiredFieldsWithEventID:nil
+                                                                          params:params];
     if(!mParams) return;
     
     NSURLRequest *urlRequest = [self urlRequestForCategory:GACategoryUser
@@ -256,10 +257,11 @@ static NSMutableSet *offlineArchive;
 -(void)logGameDesignDataEvent:(NSString *)eventID
                    withParams:(NSDictionary *)params
 {
-    if([GASettings isDebugLogEnabled])
+    if ([GASettings isDebugLogEnabled])
         NSLog(@"logGameDesignDataEvent called");
-    NSDictionary *mParams = [self mutableDictionaryFromRequiredFieldsWithEventID:eventID params:params];
-    if(!mParams) return;
+    NSDictionary *mParams = [self mutableDictionaryFromRequiredFieldsWithEventID:eventID
+                                                                          params:params];
+    if (!mParams) return;
     
     NSURLRequest *urlRequest = [self urlRequestForCategory:GACategoryDesign
                                                 withParams:mParams];
@@ -274,18 +276,16 @@ static NSMutableSet *offlineArchive;
                amountNumber:(NSNumber *)amount
                  withParams:(NSDictionary *)params
 {
-    if([GASettings isDebugLogEnabled])
+    if ([GASettings isDebugLogEnabled])
         NSLog(@"logBusinessDataEvent called");
 
     NSDictionary *paramsDict = [self mutableDictionaryFromRequiredFieldsWithEventID:eventID
                                                                              params:params];
-    if(!paramsDict) return;
+    if (!paramsDict) return;
     
     //backward compatibility code start
-    if(!currency)
-    {
-        if(![params objectForKey:@"currency"])
-        {
+    if (!currency) {
+        if (![params objectForKey:@"currency"]) {
             if([GASettings isDebugLogEnabled])
                 NSLog(@"currency is required");
             return;
@@ -294,10 +294,8 @@ static NSMutableSet *offlineArchive;
         }
     }
     
-    if(!amount)
-    {
-        if(![params objectForKey:@"amount"])
-        {
+    if (!amount) {
+        if (![params objectForKey:@"amount"]) {
             if([GASettings isDebugLogEnabled])
                 NSLog(@"amount is required");
             return;
@@ -313,6 +311,22 @@ static NSMutableSet *offlineArchive;
     [mParams setObject:amount forKey:@"amount"];
     
     NSURLRequest *urlRequest = [self urlRequestForCategory:GACategoryBusiness
+                                                withParams:mParams];
+    
+    GARequest *request = [[GARequest alloc] initWithURLRequest:urlRequest];
+    [self enqueueOperation:request];
+}
+
+-(void)logErrorDataEvent:(NSString *)severity
+              withParams:(NSDictionary *)params
+{
+    if ([GASettings isDebugLogEnabled])
+        NSLog(@"logErrorDataEvent called");
+    NSDictionary *mParams = [self mutableDictionaryFromRequiredFieldsWithEventID:nil
+                                                                          params:params];
+    if (!mParams) return;
+    
+    NSURLRequest *urlRequest = [self urlRequestForCategory:GACategoryError
                                                 withParams:mParams];
     
     GARequest *request = [[GARequest alloc] initWithURLRequest:urlRequest];
@@ -435,6 +449,9 @@ static NSMutableSet *offlineArchive;
         case GACategoryQuality:
             categoryString = @"quality";
             break;
+        case GACategoryError:
+            categoryString = @"error";
+            break;
         case GACategoryBusiness:
             categoryString = @"business";
             break;
@@ -457,22 +474,19 @@ static NSMutableSet *offlineArchive;
      Could be nil if the app is running in the background, before the user has unlocked the device
      the first time after the device has been restarted. If the value is nil, wait and get the value again later.
      */
-    if(!self.userID)
-    {
+    if (!self.userID) {
         _userID = [self getUserID];
         if(!self.userID) return nil;
     }
     
     NSMutableDictionary *mutableParams;
-    if(params)
-    {
+    if (params) {
         mutableParams= [params mutableCopy];
     } else {
         mutableParams = [[NSMutableDictionary alloc] init];
     }
     
-    if(eventID)
-    {
+    if (eventID) {
         [mutableParams setObject:eventID forKey:@"event_id"];
     }
     
@@ -502,7 +516,7 @@ static NSMutableSet *offlineArchive;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
                                                        options:kNilOptions
                                                          error:&jsonError];
-    if(jsonError) {
+    if (jsonError) {
         NSLog(@"JSON error: %@", jsonError.localizedDescription);
     }
     
@@ -638,6 +652,35 @@ static NSMutableSet *offlineArchive;
                                      z:(NSNumber *)z
 {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (message) {
+        params[@"message"] = message;
+    }
+    if (area) {
+        params[@"area"] = area;
+    }
+    if (x) {
+        params[@"x"] = x;
+    }
+    if (y) {
+        params[@"y"] = y;
+    }
+    if (z) {
+        params[@"z"] = z;
+    }
+    return [params copy];
+}
+
+-(NSDictionary *)errorDataDictWithSeverity:(NSString *)severity
+                                   message:(NSString *)message
+                                      area:(NSString *)area
+                                         x:(NSNumber *)x
+                                         y:(NSNumber *)y
+                                         z:(NSNumber *)z
+{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    if (severity) {
+        params[@"severity"] = severity;
+    }
     if (message) {
         params[@"message"] = message;
     }

@@ -224,6 +224,32 @@ static GAEngine *_gaEngine;
                                               z:nil];
 }
 
++ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
+                  message:(NSString *)message
+                     area:(NSString *)area
+                        x:(NSNumber *)x
+                        y:(NSNumber *)y
+                        z:(NSNumber *)z
+{
+    [self.gaEngine errorDataDictWithSeverity:[GameAnalytics stringForSeverity:severity]
+                                     message:message
+                                        area:area
+                                           x:x
+                                           y:y
+                                           z:z];
+}
+
++ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
+                  message:(NSString *)message
+{
+    [self.gaEngine errorDataDictWithSeverity:[GameAnalytics stringForSeverity:severity]
+                                     message:message
+                                        area:nil
+                                           x:nil
+                                           y:nil
+                                           z:nil];
+}
+
 + (void)updateSessionID
 {
     [self.gaEngine updateSessionID];
@@ -275,6 +301,33 @@ static GAEngine *_gaEngine;
 + (void)setSubmitWhileRoaming:(BOOL)value
 {
     [GASettings setSubmitWhileRoaming:value];
+}
+
+#pragma mark - private
+
++ (NSString *)stringForSeverity:(GAErrorSeverityLevel)severity
+{
+    NSString *severityString;
+    
+    switch (severity) {
+        case GAErrorSeverityLevelDebug:
+            severityString = @"debug";
+            break;
+        case GAErrorSeverityLevelInfo:
+            severityString = @"info";
+            break;
+        case GAErrorSeverityLevelWarning:
+            severityString = @"warning";
+            break;
+        case GAErrorSeverityLevelError:
+            severityString = @"error";
+            break;
+        case GAErrorSeverityLevelCritical:
+            severityString = @"critical";
+            break;
+    }
+    
+    return severityString;
 }
 
 @end

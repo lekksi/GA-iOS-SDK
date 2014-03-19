@@ -8,6 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ *  @abstract Enum for setting severity level of error event.
+ *
+ *  @since 0.5.0
+ *
+ */
+typedef enum {
+    GAErrorSeverityLevelDebug = 0,
+    GAErrorSeverityLevelInfo,
+    GAErrorSeverityLevelWarning,
+    GAErrorSeverityLevelError,
+    GAErrorSeverityLevelCritical
+} GAErrorSeverityLevel;
+
+
 @interface GameAnalytics : NSObject
 
 /*!
@@ -153,17 +168,33 @@
  *
  */
 + (void)logQualityAssuranceDataEvent:(NSString *)eventID
-                          withParams:(NSDictionary *)params;
+                          withParams:(NSDictionary *)params DEPRECATED_ATTRIBUTE;
 
 + (void)logQualityAssuranceDataEvent:(NSString *)eventID
                              message:(NSString *)message
                                 area:(NSString *)area
                                    x:(NSNumber *)x
                                    y:(NSNumber *)y
-                                   z:(NSNumber *)z;
+                                   z:(NSNumber *)z DEPRECATED_ATTRIBUTE;
 
 + (void)logQualityAssuranceDataEvent:(NSString *)eventID
-                             message:(NSString *)message;
+                             message:(NSString *)message DEPRECATED_ATTRIBUTE;
+
+/*!
+ *  @since 0.5.0
+ */
++ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
+                  message:(NSString *)message
+                     area:(NSString *)area
+                        x:(NSNumber *)x
+                        y:(NSNumber *)y
+                        z:(NSNumber *)z;
+
+/*!
+ *  @since 0.5.0
+ */
++ (void)logErrorDataEvent:(GAErrorSeverityLevel)severity
+                  message:(NSString *)message;
 
 /*!
  *  @abstract Updates session ID

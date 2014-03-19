@@ -15,9 +15,10 @@ typedef enum : NSInteger
 {
     GACategoryDesign = 0,   //gameplay
     GACategoryQuality,      //quality assurance
+    GACategoryError,        //Error
     GACategoryBusiness,     //transactions
     GACategoryUser          //player profiles
-}GACategory;
+} GACategory;
 
 @interface GAEngine : NSObject <GARequestDelegate>
 
@@ -43,6 +44,9 @@ typedef enum : NSInteger
              currencyString:(NSString *)currency
                amountNumber:(NSNumber *)amount
                  withParams:(NSDictionary *)params;
+
+-(void)logErrorDataEvent:(NSString *)severity
+              withParams:(NSDictionary *)params;
 
 -(void)logQualityAssuranceDataEvent:(NSString *)eventID
                          withParams:(NSDictionary *)params;
@@ -107,5 +111,12 @@ typedef enum : NSInteger
                                      x:(NSNumber *)x
                                      y:(NSNumber *)y
                                      z:(NSNumber *)z;
+
+-(NSDictionary *)errorDataDictWithSeverity:(NSString *)severity
+                                   message:(NSString *)message
+                                      area:(NSString *)area
+                                         x:(NSNumber *)x
+                                         y:(NSNumber *)y
+                                         z:(NSNumber *)z;
 
 @end
