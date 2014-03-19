@@ -16,6 +16,7 @@
 -(IBAction)logBusinessData:(id)sender;
 -(IBAction)logGameDesingData:(id)sender;
 -(IBAction)logQAData:(id)sender;
+-(IBAction)logErrorData:(id)sender;
 
 -(IBAction)toggleDebugLog:(id)sender;
 

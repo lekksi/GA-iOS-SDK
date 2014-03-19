@@ -84,9 +84,16 @@
                                               x:@1
                                               y:@2
                                               z:@3];
-    
-//    [GameAnalytics logQualityAssuranceDataEvent:@"Exceptaion:NullReferenceException"
-//                                     withParams:@{ @"area" : @"Level 1", @"x" : @1.0f, @"y" : @1.0f, @"z" : @1.0f, @"message" : @"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."}];
+}
+
+-(IBAction)logErrorData:(id)sender
+{
+    [GameAnalytics logErrorDataEvent:GAErrorSeverityLevelWarning
+                             message:@"at Infragistics.Windows.Internal.TileManager.ItemRowColumnSizeInfo.."
+                                area:@"area"
+                                   x:@1
+                                   y:@2
+                                   z:@3];
 }
 
 -(IBAction)toggleDebugLog:(id)sender
