@@ -36,8 +36,7 @@
 
 -(void)start
 {
-    if (self.state != GARequestStatusNotStarted && self.state != GARequestStatusCancelled)
-    {
+    if (self.state != GARequestStatusNotStarted && self.state != GARequestStatusCancelled) {
         NSLog(@"Attempt to start existing request. Ignoring.");
         return;
     }
@@ -57,12 +56,9 @@
 
 -(BOOL)isFinished
 {
-    if(self.state == GARequestStatusCompleted || self.state == GARequestStatusFailed  || self.state == GARequestStatusCancelled)
-    {
+    if(self.state == GARequestStatusCompleted || self.state == GARequestStatusFailed  || self.state == GARequestStatusCancelled) {
         return YES;
-    }
-    else
-    {
+    } else {
         return NO;
     }
 }
@@ -80,14 +76,15 @@
     _state = state;
     [self didChangeValueForKey:@"state"];
     
-    if (state == GARequestStatusStarted)
-    {
+    if (state == GARequestStatusStarted) {
         //[self addSelfToActiveRequestsSet];
-    }
-    else if (state == GARequestStatusCompleted || state == GARequestStatusFailed  || state == GARequestStatusCancelled)
-    {   
-        if(self.delegate && [self.delegate respondsToSelector:@selector(removeFromInProgressQueue:)])
-        {
+    } else if (state == GARequestStatusCompleted
+               || state == GARequestStatusFailed
+               || state == GARequestStatusCancelled) {
+        
+        if(self.delegate
+           && [self.delegate respondsToSelector:@selector(removeFromInProgressQueue:)]) {
+
             [self.delegate removeFromInProgressQueue:self];
         }
         
@@ -123,8 +120,7 @@
 }
 
 -(void) dealloc {
-    if(urlConnection)
-    {
+    if (urlConnection) {
         [urlConnection cancel];
         urlConnection = nil;
     }
@@ -136,8 +132,9 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
-    if([GASettings isDebugLogEnabled])
+    if ([GASettings isDebugLogEnabled]) {
         NSLog(@"GARequest to %@ failed with error: %@", self.request.URL, error.localizedDescription);
+    }
     
     [self setState:GARequestStatusFailed];
 }
@@ -147,10 +144,34 @@
     
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     
-    if (httpResponse.statusCode != 202)//Accepted
-    {
-        if([GASettings isDebugLogEnabled])
+    //202 - Accepted
+    if (httpResponse.statusCode != 202) {
+
+        if ([GASettings isDebugLogEnabled]) {
+
             NSLog(@"GARequest finished with repsonse code: %ld", (long)httpResponse.statusCode);
+
+            switch (httpResponse.statusCode) {
+                case GAErrorBadRequest:
+                    NSLog(@"Bad Request/Game not found/Data not found");
+                    break;
+                case GAErrorUnauthorized:
+                    NSLog(@"Unauthorized/Signature not found in request");
+                    break;
+                case GAErrorForbidden:
+                    NSLog(@"Forbidden");
+                    break;
+                case GAErrorGameKeyNotFound:
+                    NSLog(@"Game key not found/Method not found");
+                    break;
+                case GAErrorInternalServerError:
+                    NSLog(@"Internal Server Error");
+                    break;
+                case GAErrorNotImplemented:
+                    NSLog(@"Not Implemented");
+                    break;
+            }
+        }
         
         [urlConnection cancel];
         [self setState:GARequestStatusFailed];
