@@ -232,7 +232,7 @@ static NSMutableSet *offlineArchive;
                                   @"os_minor": [UIDevice currentDevice].systemVersion,
                                     @"ios_id": self.userID,
                                @"sdk_version":@"ios 0.5.0"
-                                  }];
+                                  }];//ios_static ios
     
 }
 
